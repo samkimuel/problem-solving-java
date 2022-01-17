@@ -1,4 +1,4 @@
-package 백준;
+package 이취코테.구현.시각;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,12 +10,27 @@ public class Main {
 	static FastReader scan = new FastReader();
 	static StringBuilder sb = new StringBuilder();
 
-	static void input() {
+	static int N;
 
+	static void input() {
+		N = scan.nextInt();
 	}
 
 	static void solution() {
+		int count = 0;
 
+		for (int i = 0; i <= N; i++) {
+			for (int j = 0; j < 60; j++) {
+				for (int k = 0; k < 60; k++) {
+					if (String.join(String.valueOf(i), String.valueOf(j), String.valueOf(k))
+						.contains("3")) {
+						count++;
+					}
+				}
+			}
+		}
+
+		System.out.println(count);
 	}
 
 	public static void main(String[] args) {
