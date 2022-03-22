@@ -1,4 +1,4 @@
-package 백준.국영수10825;
+package 백준.정렬.국영수10825;
 
 import java.io.BufferedReader;
 import java.io.File;

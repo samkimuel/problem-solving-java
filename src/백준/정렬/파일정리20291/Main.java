@@ -1,4 +1,4 @@
-package 백준.파일정리20291;
+package 백준.정렬.파일정리20291;
 
 import java.io.BufferedReader;
 import java.io.IOException;

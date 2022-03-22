@@ -1,14 +1,12 @@
-package 백준.단어정렬1181;
+package 백준.정렬.수열정렬1015;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 import java.util.StringTokenizer;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -16,53 +14,38 @@ public class Main {
 	static StringBuilder sb = new StringBuilder();
 
 	static int N;
-	static Set<String> stringSet;
-	static String[] strings;
+	static int[] A;
 
 	static void input() {
 		N = scan.nextInt();
-		stringSet = new HashSet<>();
+		A = new int[N];
 		for (int i = 0; i < N; i++) {
-			stringSet.add(scan.nextLine());
-		}
-	}
-
-	static void inputV2() {
-		N = scan.nextInt();
-
-		strings = new String[N];
-		for (int i = 0; i < N; i++) {
-			strings[i] = scan.nextLine();
+			A[i] = scan.nextInt();
 		}
 	}
 
 	static void solution() {
-		stringSet.stream()
-			.sorted(Comparator.comparingInt(String::length).thenComparing(String::compareTo))
-			.collect(Collectors.toList())
-			.forEach(string -> sb.append(string).append("\n"));
-
-		System.out.println(sb);
-	}
-
-	static void solutionV2() {
-		Arrays.sort(strings, Comparator.comparing(String::length).thenComparing(String::compareTo));
-
+		List<Element> elements = new ArrayList<>();
 		for (int i = 0; i < N; i++) {
-			if (i > 0 && strings[i].equals(strings[i - 1])) {
-				continue;
-			}
-			sb.append(strings[i]).append("\n");
+			elements.add(new Element(i, A[i]));
 		}
 
+		elements.sort(Comparator.comparing(Element::getValue).thenComparing(Element::getIndex));
+
+		int[] P = new int[N];
+		for (int i = 0; i < N; i++) {
+			P[elements.get(i).getIndex()] = i;
+		}
+
+		for (int i = 0; i < N; i++) {
+			sb.append(P[i]).append(" ");
+		}
 		System.out.println(sb);
 	}
 
 	public static void main(String[] args) {
-//		input();
-//		solution();
-		inputV2();
-		solutionV2();
+		input();
+		solution();
 	}
 
 	static class Element {

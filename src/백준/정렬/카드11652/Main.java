@@ -1,11 +1,9 @@
-package 백준.수열정렬1015;
+package 백준.정렬.카드11652;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -14,57 +12,42 @@ public class Main {
 	static StringBuilder sb = new StringBuilder();
 
 	static int N;
-	static int[] A;
+	static long[] numbers;
 
 	static void input() {
 		N = scan.nextInt();
-		A = new int[N];
+		numbers = new long[N];
 		for (int i = 0; i < N; i++) {
-			A[i] = scan.nextInt();
+			numbers[i] = scan.nextLong();
 		}
 	}
 
 	static void solution() {
-		List<Element> elements = new ArrayList<>();
-		for (int i = 0; i < N; i++) {
-			elements.add(new Element(i, A[i]));
+		Arrays.sort(numbers);
+
+		// mode : 최빈값, modeCount : 최빈값의 등장횟수, currentCount : 현재값의 등장횟수
+		long mode = numbers[0];
+		int modeCount = 1, currentCount = 1;
+
+		for (int i = 1; i < N; i++) {
+			if (numbers[i] == numbers[i - 1]) {
+				currentCount++;
+			} else {
+				currentCount = 1;
+			}
+
+			if (currentCount > modeCount) {
+				modeCount = currentCount;
+				mode = numbers[i];
+			}
 		}
 
-		elements.sort(Comparator.comparing(Element::getValue).thenComparing(Element::getIndex));
-
-		int[] P = new int[N];
-		for (int i = 0; i < N; i++) {
-			P[elements.get(i).getIndex()] = i;
-		}
-
-		for (int i = 0; i < N; i++) {
-			sb.append(P[i]).append(" ");
-		}
-		System.out.println(sb);
+		System.out.println(mode);
 	}
 
 	public static void main(String[] args) {
 		input();
 		solution();
-	}
-
-	static class Element {
-
-		private int index;
-		private int value;
-
-		public Element(int index, int value) {
-			this.index = index;
-			this.value = value;
-		}
-
-		public int getIndex() {
-			return index;
-		}
-
-		public int getValue() {
-			return value;
-		}
 	}
 
 	static class FastReader {
